@@ -12,12 +12,16 @@ namespace card
     {
         if (!isValid(value))
             throw std::domain_error(std::format("Not a valid cvv '{}'", value));
+
+        cvv = std::stoi(value);
     }
 
     CardVerificationValue::CardVerificationValue(const std::string value)
     {
         if (!isValid(value))
             throw std::domain_error(std::format("Not a valid cvv '{}'", value));
+
+        cvv = std::stoi(value);
     }
 
     bool CardVerificationValue::isValid(const char *value)

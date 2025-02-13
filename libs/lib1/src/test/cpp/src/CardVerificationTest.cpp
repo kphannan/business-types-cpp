@@ -13,6 +13,7 @@ namespace card
     };
 
     // ----- Constructor -----
+
     //   --- valid CVV ---
     TEST_F(CardVerificationValueTest, ConstructWith3DigitsString)
     {
@@ -78,6 +79,51 @@ namespace card
         {
             EXPECT_STREQ("CVV is required", e.what());
         }
+    }
+
+    //   --- Copy constructor ---
+    TEST_F(CardVerificationValueTest, CopyConstructor)
+    {
+        CardVerificationValue cvv1("123");
+        CardVerificationValue cvv2(cvv1);
+
+        EXPECT_TRUE(cvv1 == cvv2);
+    }
+
+    // ----- Operator -----
+
+    //   --- type conversion ---
+    TEST_F(CardVerificationValueTest, ConvertToString)
+    {
+        CardVerificationValue cvv{"321"};
+        std::string val = cvv;
+
+        EXPECT_EQ("321", (std::string)val);
+    }
+
+    TEST_F(CardVerificationValueTest, ConvertToInt)
+    {
+        CardVerificationValue cvv{"456"};
+        int val = cvv;
+
+        EXPECT_EQ(456, val);
+    }
+
+    //   --- comparison ---
+    TEST_F(CardVerificationValueTest, CompareSameIsTrue)
+    {
+        CardVerificationValue cvv1{"456"};
+        CardVerificationValue cvv2{"456"};
+
+        EXPECT_TRUE(cvv1 == cvv2);
+    }
+
+    TEST_F(CardVerificationValueTest, CompareDifferentIsFalse)
+    {
+        CardVerificationValue cvv1{"456"};
+        CardVerificationValue cvv2{"999"};
+
+        EXPECT_FALSE(cvv1 == cvv2);
     }
 
 }
